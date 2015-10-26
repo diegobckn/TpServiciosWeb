@@ -1,18 +1,13 @@
 package controller
 
+import applicationModel.QueComemosBuscador
+import applicationModel.QueComemosLogin
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
-import org.uqbar.xtrest.api.annotation.Body
 import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.api.annotation.Get
-import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
-import applicationModel.QueComemosBuscador
-import Grupo6.Receta
-import java.util.ArrayList
-import Grupo6.Usuario
-import applicationModel.QueComemosLogin
 
 @Controller
 class RecetasController {
@@ -33,10 +28,19 @@ class RecetasController {
 		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
 		am.usuarioLogueado = usuarioHardCoded
 		am.lista()
-		var recetas = am.resultado//.instance.tareasPendientes
-
+		var recetas = am.resultado
+		
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(recetas.toJson)
+	}
+	
+		@Get("/recetas/:id")
+	def Result recetas() {
+		
+		val iId = Integer.valueOf(id)		
+		var receta = am.getElegida(iId)
+		response.contentType=ContentType.APPLICATION_JSON
+		ok(receta.toJson)
 	}
 	
 //	@Put('/tareas/:id')

@@ -95,4 +95,16 @@ class Receta implements IComponente {
 		aux
 	}
 	
+		override equals(Object o) {
+		try {
+			val otra = o as Receta
+			return otra.id.equals(this.id)
+		} catch (ClassCastException e) {
+			return false
+		}
+	}
+
+	override hashCode() {
+		id.hashCode
+	}
 }

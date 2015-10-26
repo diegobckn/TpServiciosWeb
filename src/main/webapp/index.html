@@ -17,6 +17,8 @@
 
   <!-- ANGULAR -->
   <script src="node_modules/angular/angular.min.js"></script>
+   <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+  <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
 
   <!-- BOOTBOX (dialogos de confirmacion) http://bootboxjs.com/ -->
   <script src="node_modules/bootbox/bootbox.min.js"></script>
@@ -30,57 +32,30 @@
 
 </head>
 
-<body data-ng-controller="RecetasController as recetasCtrl">
+<body>
 
 <div class="container">
   <div class="page-header">
-    <h1>Que comemos hoy
-      <small>Servicios web</small>
+    <h1>
+      Bienvenido a 
+      <small>Que comemos hoy</small>
     </h1>
+
   </div>
 
-  <div class="row">
+  <div class="well-lg">
+    <div ui-view></div>
+ </div>
 
-    <!-- Busqueda y resultados -- >
-    <div class="col-lg-12">
-      <div class="filtro">
-        <form role="form">
-          <div class="form-group">
-            <label for="tareaBuscada">Buscar</label>
-            <input ng-model="tareaBuscada" class="form-control" id="tareaBuscada" placeholder="Tarea o Asignado">
-          </div>
-        </form>
-      </div>
-      <!-- as-->
-      <div class="table-responsive">
-        <table class="table table-striped table-hover table-condensed example-animate-container">
-          <tbody>
-          <tr>
-            <th>Nombre</th>
-            <th>Calorias</th>
-            <th>Dificultad</th>
-            <th>Temporada</th>
-            <th>Acciones</th>
-          </tr>
-          <tr data-ng-repeat="receta in recetasCtrl.recetas " class="animate-repeat">
-            <td class="col-xs-4">{{receta.nombre}}</td>
-            <td class="col-xs-2">{{receta.calorias}}</td>
-            <td class="col-xs-2">{{receta.dificultad}}</td>
-            <td class="col-xs-2">{{receta.temporada}}</td>
-            <td class="col-xs-2">acciones</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+
 </div>
 
 <!-- código de nuestro tp -->
 <script src="js/app.js"></script>
-<script src="js/receta.js"></script>
-<script src="js/service.js"></script>
 <script src="js/controllers.js"></script>
+<script src="js/service.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/receta.js"></script>
 
 
 </body>

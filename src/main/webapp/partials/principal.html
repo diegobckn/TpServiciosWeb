@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">Recetas disponibles</div>
+    <div class="panel-body">
+
+
+     <table class="table table-striped table-bordered table-hover table-condensed">
+       <thead>
+       <tr>
+         <th>Nombre de la receta</th>
+         <th>Calorias</th>
+         <th>Temporada</th>
+         <th>Dificultad</th>
+         <th>Acciones</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr data-ng-repeat="receta in recetasCtrl.recetas " class="animate-repeat">
+         <td>
+           <a ui-sref="verReceta({id: receta.id})">{{receta.nombre}}</a>
+         </td>
+         <td>
+           <span>{{receta.calorias}}</span>
+         </td>
+         <td>
+           <span>{{receta.temporada}}</span>
+         </td>
+         <td>
+           <span>{{receta.dificultad}}</span>
+         </td>
+
+
+         <td>
+           <a class="btn btn-primary" ui-sref="verReceta({id: receta.id})">
+           <span class="glyphicon glyphicon-eye-open"></span>
+           Ver Receta
+           </a>
+           <p class="btn btn-warning">
+           <span class="glyphicon glyphicon-star"></span>
+           Favorita
+           </p>
+           <a class="btn btn-success" ui-sref="copiarReceta({id: receta.id})">
+           <span class="glyphicon glyphicon-duplicate"></span>
+           Copiar
+           </a>
+         
+         </td>
+
+
+       </tr>
+       </tbody>
+     </table>
+    </div>
+  </div>
+</div>

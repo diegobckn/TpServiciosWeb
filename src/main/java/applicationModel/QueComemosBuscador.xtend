@@ -56,6 +56,7 @@ class QueComemosBuscador {
 	
 	def void lista()
 	{
+				println("llegue a lo de siempre")
 		resultado = new ArrayList<Receta>()
 		if (usuarioLogueado.recetasFavoritas.size > 0) {
 			resultado.addAll(usuarioLogueado.recetasFavoritas)
@@ -85,6 +86,8 @@ class QueComemosBuscador {
 	}
 	
 	def getElegida(int id){
+				println("llegue a el get!!")
+
 		return repo.getById(id)
 	}
 	
