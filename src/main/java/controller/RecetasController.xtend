@@ -36,9 +36,17 @@ class RecetasController {
 
 	@Get("/receta/:id")
 	def Result receta() {
-		println("llegue al fin")
 		val iId = Integer.valueOf(id)
 		var receta = am.getElegida(iId)
+		response.contentType = ContentType.APPLICATION_JSON
+
+		ok(receta.toJson)
+	}
+
+	@Get("/copiar-receta/:id")
+	def Result recetaCopy() {
+		val cId = Integer.valueOf(id)
+		var receta = am.getElegida(cId)
 		response.contentType = ContentType.APPLICATION_JSON
 
 		ok(receta.toJson)
@@ -47,12 +55,12 @@ class RecetasController {
 	@Put('/copiar-receta/:id')
 	def Result copiar() {
 		val iId = Integer.valueOf(id)
-		am.hacerCopia(iId)
 		amUsu.usuario = "Lex Luthor"
 		amUsu.clave = "lEx";
 		amUsu.checkLogin()
 		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
 		am.usuarioLogueado = usuarioHardCoded
+		am.hacerCopia(iId)
 		am.lista()
 		var recetas = am.resultado
 

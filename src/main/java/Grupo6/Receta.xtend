@@ -62,6 +62,10 @@ class Receta implements IComponente {
 		condicionesPreexistentes.add(unaCondicion)
 	}
 	
+	def String getCreadaPor(){
+		return acceso.usuarioCarga.nombre
+	}
+	
 	def getPasosToString(){
 		if(pasos.size>0)
 		{

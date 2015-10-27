@@ -11,7 +11,18 @@ app.service('recetasService', function($http) {
 });
 
 app.service('verRecetaService', function($http) {
-	this.findAll = function(id,callback) {
+	this.findAll = function(id, callback) {
 		$http.get('/receta/' + id).then(callback);
+	}
+});
+
+app.service('copiarRecetaService', function($http) {
+
+	this.findAll = function(id, callback) {
+		$http.get('/copiar-receta/' + id).then(callback);
+	}
+
+	this.copy = function(id, callback) {
+		$http.put('/copiar-receta/' + id).then(callback);
 	}
 });

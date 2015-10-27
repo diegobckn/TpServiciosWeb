@@ -20,7 +20,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
    .state('copiarReceta', {
      url: "/copiar-receta/:id",
      templateUrl: "partials/copiar_receta.html",
-      controller: "CopiarRecetaController as copiarCtrl"
+      controller: "copiarRecetaController as copiarCtrl"
    })
 
 });

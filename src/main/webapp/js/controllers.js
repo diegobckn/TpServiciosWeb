@@ -17,8 +17,7 @@ app.controller('ListarRecetasController', function(recetasService) {
 
 });
 
-app.controller('VerRecetaController', function($stateParams, $state,
-		verRecetaService) {
+app.controller('VerRecetaController', function($stateParams, $state,verRecetaService) {
 	
 	
 	function transformarAReceta(jsonReceta) {
@@ -30,15 +29,32 @@ app.controller('VerRecetaController', function($stateParams, $state,
 	this.getRecetaById = function() {
 		verRecetaService.findAll($stateParams.id,function(data) {
 			self.receta = data.data;
-//			self.receta = _.map(data.data, Receta.asReceta);
 		});
 	};
 
 	this.getRecetaById();
 
-//	if (!this.receta) {
-//		$state.go("listarRecetas");
-//		return;
-//	}
+});
 
+
+app.controller('copiarRecetaController', function ($stateParams, $state, copiarRecetaService) {
+	var self = this;
+	var receta = [];
+	
+	this.getRecetaById = function() {
+		copiarRecetaService.findAll($stateParams.id,function(data) {
+			self.receta = data.data;
+		});
+	};
+
+	this.getRecetaById()
+	
+// this.aceptar = function () {
+// copiarRecetasService.copiarReceta(this.receta,this.nuevoNombre);
+// $state.go("listarRecetas");
+// };
+
+	 
+// self.nuevoNombre = "Copia de " + this.receta.nombre;
+// this.receta = copiarRecetasService.getRecetaById($stateParams.id);
 });
