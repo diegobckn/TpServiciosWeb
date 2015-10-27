@@ -23,7 +23,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Ivan/.m2/repository/org/uqbar-project/queComemos-repoRecetas-entrega3/0.0.2/queComemos-repoRecetas-entrega3-0.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ivan/.m2/repository/org/uqbar-project/queComemos-repoRecetas-entrega3/0.0.2/queComemos-repoRecetas-entrega3-0.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hp/.m2/repository/org/uqbar-project/queComemos-repoRecetas-entrega3/0.0.2/queComemos-repoRecetas-entrega3-0.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hp/.m2/repository/org/uqbar-project/queComemos-repoRecetas-entrega3/0.0.2/queComemos-repoRecetas-entrega3-0.0.2-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -92,7 +92,8 @@ class Receta implements IComponente {
 		copiaReceta.calorias = calorias
 		copiaReceta.dificultad = dificultad
 		copiaReceta.temporada = temporada
-		copiaReceta.acceso = new RecetaAccesoPrivado(unUsuario)
+//		copiaReceta.acceso = new RecetaAccesoPrivado(unUsuario)
+		copiaReceta.acceso = new RecetaAccesoPublico()
 		copiaReceta.condimentos.addAll(condimentos)
 		copiaReceta.condicionesPreexistentes = condicionesPreexistentes
 		

@@ -4,6 +4,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
  $stateProvider
 
+   .state('login', {
+     url: "/login",
+     templateUrl: "partials/login.html",
+      controller: "loginController as loginCtrl"
+   })
+
    .state('listarRecetas', {
      url: "/",
      templateUrl: "partials/principal.html",
@@ -22,5 +28,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
      templateUrl: "partials/copiar_receta.html",
       controller: "copiarRecetaController as copiarCtrl"
    })
+
 
 });

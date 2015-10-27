@@ -38,23 +38,49 @@ app.controller('VerRecetaController', function($stateParams, $state,verRecetaSer
 
 
 app.controller('copiarRecetaController', function ($stateParams, $state, copiarRecetaService) {
+	function transformarAReceta(jsonReceta) {
+		return Receta.asReceta(jsonReceta);
+	}
+
 	var self = this;
 	var receta = [];
-	
 	this.getRecetaById = function() {
 		copiarRecetaService.findAll($stateParams.id,function(data) {
 			self.receta = data.data;
+			this.receta = self.receta;
+			this.receta.nuevoNombre = "Copia de " + this.receta.nombre;
 		});
 	};
 
-	this.getRecetaById()
+	this.getRecetaById();
 	
-// this.aceptar = function () {
-// copiarRecetasService.copiarReceta(this.receta,this.nuevoNombre);
-// $state.go("listarRecetas");
-// };
+ this.aceptar = function () {
+ copiarRecetaService.copiarReceta(this.receta.id,this.receta.nuevoNombre);
+ $state.go("listarRecetas");
+ };
 
 	 
 // self.nuevoNombre = "Copia de " + this.receta.nombre;
 // this.receta = copiarRecetasService.getRecetaById($stateParams.id);
 });
+
+
+
+app.controller('loginController', function($stateParams, $state,loginService) {
+	this.nombre = "";
+	this.clave = "";
+
+/*
+ this.aceptar = function () {
+ loginService.checkLogin(this.nombre,this.clave, function() {
+	 $state.go("listarRecetas");
+	 });
+ };
+
+ */
+
+
+
+});
+
+

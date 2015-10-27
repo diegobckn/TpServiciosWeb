@@ -1,3 +1,14 @@
+app.service('loginService', function($http) {
+	
+	/*
+	this.findAll = function(id, callback) {
+		$http.get('/receta/' + id).then(callback);
+	}
+	*/
+});
+
+
+
 app.service('recetasService', function($http) {
 
 	this.findAll = function(callback) {
@@ -22,7 +33,13 @@ app.service('copiarRecetaService', function($http) {
 		$http.get('/copiar-receta/' + id).then(callback);
 	}
 
-	this.copy = function(id, callback) {
-		$http.put('/copiar-receta/' + id).then(callback);
+	this.permaLink = function doDashes2(str) {
+	var reemplazarEspaciosPor = "";
+    return str.replace(/[^a-z0-9]+/gi, reemplazarEspaciosPor).replace(/^-*|-*$/g, '').toLowerCase();
+	}
+
+	this.copiarReceta = function(id,nuevoNombre, callback) {
+		nuevoNombre  = this.permaLink(nuevoNombre);
+		$http.get('/copiar-receta/' + id+'/' + nuevoNombre).then(callback);
 	}
 });

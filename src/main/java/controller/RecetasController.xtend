@@ -19,7 +19,12 @@ class RecetasController {
 	def static void main(String[] args) {
 		XTRest.start(RecetasController, 9000)
 	}
-
+	
+	@Get("/login")
+	def Result login() {
+		ok('{ "status" : "OK" }');
+	}
+	
 	@Get("/recetas")
 	def Result recetas() {
 		amUsu.usuario = "Lex Luthor"
@@ -44,7 +49,7 @@ class RecetasController {
 	}
 
 	@Get("/copiar-receta/:id")
-	def Result recetaCopy() {
+	def Result copiarReceta() {
 		val cId = Integer.valueOf(id)
 		var receta = am.getElegida(cId)
 		response.contentType = ContentType.APPLICATION_JSON
@@ -52,7 +57,7 @@ class RecetasController {
 		ok(receta.toJson)
 	}
 
-	@Put('/copiar-receta/:id')
+	@Get('/copiar-receta/:id/:nombre')
 	def Result copiar() {
 		val iId = Integer.valueOf(id)
 		amUsu.usuario = "Lex Luthor"
@@ -60,6 +65,7 @@ class RecetasController {
 		amUsu.checkLogin()
 		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
 		am.usuarioLogueado = usuarioHardCoded
+		am.nombreCopia = nombre
 		am.hacerCopia(iId)
 		am.lista()
 		var recetas = am.resultado
