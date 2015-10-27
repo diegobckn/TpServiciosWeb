@@ -80,19 +80,19 @@ class Receta implements IComponente {
 	}
 	
 	def Receta getCopia(Usuario unUsuario) {
-		var aux = new Receta()
-		aux.nombre = nombre
+		var copiaReceta = new Receta()
+		copiaReceta.nombre = nombre
 
-		aux.ingredientes.addAll(ingredientes)
-		aux.pasos.addAll(pasos)
-		aux.calorias = calorias
-		aux.dificultad = dificultad
-		aux.temporada = temporada
-		aux.acceso = new RecetaAccesoPrivado(unUsuario)
-		aux.condimentos.addAll(condimentos)
-		aux.condicionesPreexistentes = condicionesPreexistentes
+		copiaReceta.ingredientes.addAll(ingredientes)
+		copiaReceta.pasos.addAll(pasos)
+		copiaReceta.calorias = calorias
+		copiaReceta.dificultad = dificultad
+		copiaReceta.temporada = temporada
+		copiaReceta.acceso = new RecetaAccesoPrivado(unUsuario)
+		copiaReceta.condimentos.addAll(condimentos)
+		copiaReceta.condicionesPreexistentes = condicionesPreexistentes
 		
-		aux
+		copiaReceta
 	}
 	
 		override equals(Object o) {

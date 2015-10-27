@@ -6,6 +6,7 @@ import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
 import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.api.annotation.Get
+import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
 
@@ -19,7 +20,6 @@ class RecetasController {
 		XTRest.start(RecetasController, 9000)
 	}
 
-
 	@Get("/recetas")
 	def Result recetas() {
 		amUsu.usuario = "Lex Luthor"
@@ -29,20 +29,36 @@ class RecetasController {
 		am.usuarioLogueado = usuarioHardCoded
 		am.lista()
 		var recetas = am.resultado
-		
+
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(recetas.toJson)
 	}
-	
-		@Get("/recetas/:id")
-	def Result recetas() {
-		
-		val iId = Integer.valueOf(id)		
+
+	@Get("/receta/:id")
+	def Result receta() {
+		println("llegue al fin")
+		val iId = Integer.valueOf(id)
 		var receta = am.getElegida(iId)
-		response.contentType=ContentType.APPLICATION_JSON
+		response.contentType = ContentType.APPLICATION_JSON
 		ok(receta.toJson)
 	}
-	
+
+	@Put('/copiar-receta/:id')
+	def Result copiar() {
+		val iId = Integer.valueOf(id)
+		am.hacerCopia(iId)
+		amUsu.usuario = "Lex Luthor"
+		amUsu.clave = "lEx";
+		amUsu.checkLogin()
+		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
+		am.usuarioLogueado = usuarioHardCoded
+		am.lista()
+		var recetas = am.resultado
+
+		response.contentType = ContentType.APPLICATION_JSON
+		ok(recetas.toJson)
+	}
+
 //	@Put('/tareas/:id')
 //	def Result actualizar(@Body String body) {
 //		val actualizado = body.fromJson(Tarea)

@@ -19,10 +19,14 @@ app.controller('ListarRecetasController', function(recetasService) {
 
 app.controller('VerRecetaController', function($stateParams, $state,
 		verRecetaService) {
+	
+	
+	function transformarAReceta(jsonReceta) {
+		return Receta.asReceta(jsonReceta);
+	}
+	
 	var self = this;
 	var receta = [];
-	// La idea de este metodo es que consiga la receta que coinsida con el id para poder mostrarla ya que es filtrada previamente. Pero por alguna razon no llega
-	// Revisar el service.js (verRecetaService) y RecetasController.xtend
 	this.getRecetaById = function() {
 		verRecetaService.findAll(function(data) {
 			self.receta = _.map(data.data, Receta.asReceta);

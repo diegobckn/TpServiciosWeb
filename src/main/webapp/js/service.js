@@ -11,9 +11,10 @@ app.service('recetasService', function($http) {
 });
 
 app.service('verRecetaService', function($http) {
-
-	this.findAll = function(callback) {
-		$http.get('/recetas/:id').then(callback);
+	
+	
+	this.findAll = function(receta, callback) {
+		$http.get('/receta/' + receta.id, receta).then(callback);
 	}
 
 	// this.update = function(receta, callback) {

@@ -86,8 +86,7 @@ class QueComemosBuscador {
 	}
 	
 	def getElegida(int id){
-				println("llegue a el get!!")
-
+		println("llegue a el get!!")
 		return repo.getById(id)
 	}
 	
