@@ -11,14 +11,7 @@ app.service('recetasService', function($http) {
 });
 
 app.service('verRecetaService', function($http) {
-	
-	
-	this.findAll = function(receta, callback) {
-		$http.get('/receta/' + receta.id, receta).then(callback);
+	this.findAll = function(id,callback) {
+		$http.get('/receta/' + id).then(callback);
 	}
-
-	// this.update = function(receta, callback) {
-	// $http.put('/receta/' + receta.id, receta).then(callback)
-	// }
-
 });

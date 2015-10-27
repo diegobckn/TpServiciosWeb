@@ -28,16 +28,17 @@ app.controller('VerRecetaController', function($stateParams, $state,
 	var self = this;
 	var receta = [];
 	this.getRecetaById = function() {
-		verRecetaService.findAll(function(data) {
-			self.receta = _.map(data.data, Receta.asReceta);
+		verRecetaService.findAll($stateParams.id,function(data) {
+			self.receta = data.data;
+//			self.receta = _.map(data.data, Receta.asReceta);
 		});
 	};
 
 	this.getRecetaById();
 
-	if (!this.receta) {
-		$state.go("listarRecetas");
-		return;
-	}
+//	if (!this.receta) {
+//		$state.go("listarRecetas");
+//		return;
+//	}
 
 });

@@ -40,6 +40,7 @@ class RecetasController {
 		val iId = Integer.valueOf(id)
 		var receta = am.getElegida(iId)
 		response.contentType = ContentType.APPLICATION_JSON
+
 		ok(receta.toJson)
 	}
 
