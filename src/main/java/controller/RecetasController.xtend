@@ -9,10 +9,13 @@ import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
+import org.uqbar.xtrest.api.annotation.Body
+import Grupo6.Receta
+import org.uqbar.xtrest.api.annotation.Post
 
 @Controller
 class RecetasController {
-	QueComemosBuscador am = new QueComemosBuscador()
+	QueComemosBuscador amBuscadorRecetas = new QueComemosBuscador()
 	QueComemosLogin amUsu = new QueComemosLogin()
 	extension JSONUtils = new JSONUtils
 
@@ -31,18 +34,32 @@ class RecetasController {
 		amUsu.clave = "lEx";
 		amUsu.checkLogin()
 		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
-		am.usuarioLogueado = usuarioHardCoded
-		am.lista()
-		var recetas = am.resultado
+		amBuscadorRecetas.usuarioLogueado = usuarioHardCoded
+		amBuscadorRecetas.lista()
+		var recetas = amBuscadorRecetas.resultado
 
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(recetas.toJson)
+	}
+	
+	
+	@Get("/check-favorita/:id")
+	def Result checkFavorita() {
+		val iId = Integer.valueOf(id)
+		amUsu.usuario = "Lex Luthor"
+		amUsu.clave = "lEx";
+		amUsu.checkLogin()
+		amBuscadorRecetas.usuarioLogueado = amUsu.repoUsuarios.usuarioLogueado
+		var esFavorita = amBuscadorRecetas.checkFavorita(iId)
+		
+		response.contentType = ContentType.APPLICATION_JSON
+		ok(esFavorita.toJson)
 	}
 
 	@Get("/receta/:id")
 	def Result receta() {
 		val iId = Integer.valueOf(id)
-		var receta = am.getElegida(iId)
+		var receta = amBuscadorRecetas.getElegida(iId)
 		response.contentType = ContentType.APPLICATION_JSON
 
 		ok(receta.toJson)
@@ -51,27 +68,27 @@ class RecetasController {
 	@Get("/copiar-receta/:id")
 	def Result copiarReceta() {
 		val cId = Integer.valueOf(id)
-		var receta = am.getElegida(cId)
+		var receta = amBuscadorRecetas.getElegida(cId)
 		response.contentType = ContentType.APPLICATION_JSON
 
 		ok(receta.toJson)
 	}
 
-	@Get('/copiar-receta/:id/:nombre')
-	def Result copiar() {
+	@Post('/copiar-receta/:id')
+	def Result copiar(@Body String body) {
 		val iId = Integer.valueOf(id)
+		var copia = body.fromJson(Receta)
 		amUsu.usuario = "Lex Luthor"
 		amUsu.clave = "lEx";
 		amUsu.checkLogin()
-		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
-		am.usuarioLogueado = usuarioHardCoded
-		am.nombreCopia = nombre
-		am.hacerCopia(iId)
-		am.lista()
-		var recetas = am.resultado
+		amBuscadorRecetas.usuarioLogueado = amUsu.repoUsuarios.usuarioLogueado
+		amBuscadorRecetas.nombreCopia = copia.nombre
+		
+		amBuscadorRecetas.hacerCopia(iId)
+		
 
 		response.contentType = ContentType.APPLICATION_JSON
-		ok(recetas.toJson)
+		ok('{ "status" : "OK" }');
 	}
 
 //	@Put('/tareas/:id')

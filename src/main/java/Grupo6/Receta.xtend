@@ -3,10 +3,10 @@ package Grupo6
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Accessors
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Receta implements IComponente {
 	int blah
 	static int creadas = 0

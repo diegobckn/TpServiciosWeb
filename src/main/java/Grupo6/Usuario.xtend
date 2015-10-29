@@ -4,10 +4,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.Date
 import java.util.List
 import java.util.ArrayList
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Accessors
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Usuario implements IAceptaSugerencias {
 	double peso
 	double altura

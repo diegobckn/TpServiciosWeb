@@ -25,6 +25,10 @@ app.service('verRecetaService', function($http) {
 	this.findAll = function(id, callback) {
 		$http.get('/receta/' + id).then(callback);
 	}
+
+	this.checkFavorita = function(id, callback) {
+		$http.get('/check-favorita/' + id).then(callback);
+	}
 });
 
 app.service('copiarRecetaService', function($http) {
@@ -33,13 +37,7 @@ app.service('copiarRecetaService', function($http) {
 		$http.get('/copiar-receta/' + id).then(callback);
 	}
 
-	this.permaLink = function doDashes2(str) {
-	var reemplazarEspaciosPor = "";
-    return str.replace(/[^a-z0-9]+/gi, reemplazarEspaciosPor).replace(/^-*|-*$/g, '').toLowerCase();
-	}
-
-	this.copiarReceta = function(id,nuevoNombre, callback) {
-		nuevoNombre  = this.permaLink(nuevoNombre);
-		$http.get('/copiar-receta/' + id+'/' + nuevoNombre).then(callback);
+	this.copiarReceta = function(receta, callback) {
+		$http.post('/copiar-receta/' + receta.id,  receta).then(callback);
 	}
 });

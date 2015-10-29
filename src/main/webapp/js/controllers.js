@@ -30,6 +30,10 @@ app.controller('VerRecetaController', function($stateParams, $state,verRecetaSer
 		verRecetaService.findAll($stateParams.id,function(data) {
 			self.receta = data.data;
 		});
+
+		verRecetaService.checkFavorita($stateParams.id,function(data) {
+			self.esFavorita = data.data;
+		});
 	};
 
 	this.getRecetaById();
@@ -48,14 +52,21 @@ app.controller('copiarRecetaController', function ($stateParams, $state, copiarR
 		copiarRecetaService.findAll($stateParams.id,function(data) {
 			self.receta = data.data;
 			this.receta = self.receta;
-			this.receta.nuevoNombre = "Copia de " + this.receta.nombre;
+			this.receta.viejoNombre = this.receta.nombre;
+			this.receta.nombre = "Copia de " + this.receta.nombre;
+			
+			this.receta.ingredientes = [];
+			this.receta.condimentos = [];
+			this.receta.condicionesQueCumple = [];
+			this.receta.acceso = null;
 		});
+
 	};
 
 	this.getRecetaById();
 	
  this.aceptar = function () {
- copiarRecetaService.copiarReceta(this.receta.id,this.receta.nuevoNombre);
+ copiarRecetaService.copiarReceta(this.receta);
  $state.go("listarRecetas");
  };
 

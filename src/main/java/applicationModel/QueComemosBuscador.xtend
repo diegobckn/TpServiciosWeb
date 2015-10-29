@@ -56,7 +56,6 @@ class QueComemosBuscador {
 	
 	def void lista()
 	{
-				println("llegue a lo de siempre")
 		resultado = new ArrayList<Receta>()
 		if (usuarioLogueado.recetasFavoritas.size > 0) {
 			resultado.addAll(usuarioLogueado.recetasFavoritas)
@@ -68,7 +67,6 @@ class QueComemosBuscador {
 			resultado = repo.getRecetasVisiblesPor(usuarioLogueado).toList()
 			labelResultado = "Estas son las recetas Disponibles"
 		}
-		println(labelResultado)
 	}
 	
 	def List<CondicionPreexistente> condicionesPermitidas(int id){
