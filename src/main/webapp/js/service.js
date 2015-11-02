@@ -1,10 +1,9 @@
 app.service('loginService', function($http) {
 	
-	/*
-	this.findAll = function(id, callback) {
-		$http.get('/receta/' + id).then(callback);
+
+	this.checkLogin= function(usuario, callback) {
+		$http.put('/login',usuario).then(callback);
 	}
-	*/
 });
 
 

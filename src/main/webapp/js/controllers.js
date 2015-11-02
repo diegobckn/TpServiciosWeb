@@ -110,25 +110,22 @@ app.controller('copiarRecetaController', function ($stateParams, $state, copiarR
  $state.go("listarRecetas");
  };
 
-	 
-// self.nuevoNombre = "Copia de " + this.receta.nombre;
-// this.receta = copiarRecetasService.getRecetaById($stateParams.id);
 });
 
 
 
 app.controller('loginController', function ($stateParams, $state,loginService) {
-	this.nombre = "";
-	this.clave = "";
+	var usuario = [];
+	var self = this;
+	usuario.nombre = "";	
+	usuario.clave = "";
 
-/*
  this.aceptar = function () {
- loginService.checkLogin(this.nombre,this.clave, function() {
+ loginService.checkLogin(this.usuario, function(data) {
+	 self.usuario = data.data;
 	 $state.go("listarRecetas");
 	 });
  };
-
- */
 
 
 

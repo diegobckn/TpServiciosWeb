@@ -19,5 +19,10 @@ class QueComemosLogin {
 		repoUsuarios.chequearUsuario(usuario,clave)
 	}
 	
+	def loguear(String elUsuario, String laClave){
+		usuario = elUsuario
+		clave = laClave
+		this. checkLogin()
+	}
 	
 }

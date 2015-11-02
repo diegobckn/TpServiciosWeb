@@ -21,24 +21,24 @@ import java.util.Map
 class RecetasController {
 	QueComemosBuscador amBuscadorRecetas = new QueComemosBuscador()
 	QueComemosLogin amUsu = new QueComemosLogin()
+	String nombre
+	String clave
 	extension JSONUtils = new JSONUtils
 
 	def static void main(String[] args) {
 		XTRest.start(RecetasController, 9000)
 	}
 	
-	@Get("/login")
-	def Result login() {
+	@Put("/login")
+	def	Result setLogin(@Body String body){
+		nombre = body.getPropertyValue("nombre") as String
+		clave = body.getPropertyValue("clave") as String
+		amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
 		ok('{ "status" : "OK" }');
 	}
-	
+
 	@Get("/recetas")
 	def Result recetas() {
-		amUsu.usuario = "Lex Luthor"
-		amUsu.clave = "lEx";
-		amUsu.checkLogin()
-		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
-		amBuscadorRecetas.usuarioLogueado = usuarioHardCoded
 		amBuscadorRecetas.lista()
 		var recetas = amBuscadorRecetas.resultado
 
@@ -49,8 +49,6 @@ class RecetasController {
 	
 	@Post("/buscar-recetas")
 	def Result buscarRecetas(@Body String body) {
-		amUsu.usuario = "Lex Luthor"
-		amUsu.clave = "lEx";
 		amUsu.checkLogin()
 		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
 		amBuscadorRecetas.usuarioLogueado = usuarioHardCoded
