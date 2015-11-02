@@ -16,6 +16,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
      controller: "ListarRecetasController as recetasCtrl"
    })
 
+   .state('buscarRecetas', {
+     url: "/buscar",
+     templateUrl: "partials/buscar.html",
+     controller: "BuscarRecetasController as buscarCtrl"
+   })
+
    .state('verReceta', {
      url: "/receta/:id",
      templateUrl: "partials/ver_receta.html",

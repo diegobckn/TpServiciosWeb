@@ -7,21 +7,23 @@ import Grupo6.Usuario
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Accessors
+@JsonIgnoreProperties(ignoreUnknown = true)
 class QueComemosBuscador {
 	Receta recetaElegida
 	Usuario usuarioLogueado
-	Integer busquedaCaloriasMinima
-	Integer busquedaCaloriasMaxima
-	String busquedaNombre
-	String busquedaIngrediente
-	String busquedaDificultad
-	String busquedaTemporada
+	Integer busquedaCaloriasMinima = 0
+	Integer busquedaCaloriasMaxima = 0
+	String busquedaNombre = ""
+	String busquedaIngrediente = ""
+	String busquedaDificultad = ""
+	String busquedaTemporada = ""
 	List<Receta> resultado
-	boolean busquedaConFiltros
-	String labelResultado
-	String nombreCopia	
+	boolean busquedaConFiltros = false
+	String labelResultado = ""
+	String nombreCopia	= ""
 	
 	new() {
 	}
@@ -34,7 +36,7 @@ class QueComemosBuscador {
 
 	def void buscar()
 	{
-		 resultado = null
+		 resultado = newArrayList
 		labelResultado = "Resultado de la busqueda"
 		
 			resultado = repo.getRecetasVisiblesPor(usuarioLogueado).toList()

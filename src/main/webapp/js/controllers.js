@@ -1,4 +1,4 @@
-app.controller('ListarRecetasController', function(recetasService) {
+app.controller('ListarRecetasController', function (recetasService) {
 	var self = this;
 	this.recetas = [];
 
@@ -17,7 +17,47 @@ app.controller('ListarRecetasController', function(recetasService) {
 
 });
 
-app.controller('VerRecetaController', function($stateParams, $state,verRecetaService) {
+
+app.controller('BuscarRecetasController', function ($stateParams, $state, buscarRecetasService) {
+	var self = this;
+	this.recetas = [];
+	this.recetaEjemplo;
+
+	this.iniciarValoresBusqueda = function() {
+		this.recetaEjemplo = new Receta();
+		this.recetaEjemplo.nombre = "";
+		this.recetaEjemplo.dificultad = "";
+		this.recetaEjemplo.temporada = "";
+		this.recetaEjemplo.conIngrediente = "";
+		this.recetaEjemplo.conFiltros = false;
+		this.recetaEjemplo.caloriasMinima = 0;
+		this.recetaEjemplo.caloriasMaxima = 0;
+	};
+	this.iniciarValoresBusqueda();
+
+	function transformarAReceta(jsonReceta) {
+		return Receta.asReceta(jsonReceta);
+	}
+
+	this.limpiarLista = function () {
+		 this.recetas = [];
+	 $state.go("buscarRecetas");
+	 };
+
+
+
+	this.buscar = function () {
+	 buscarRecetasService.buscarPosta(this.recetaEjemplo,function(data) {
+	 	self.recetas = data.data;
+	 });
+	 $state.go("buscarRecetas");
+	 };
+
+});
+
+
+
+app.controller('VerRecetaController', function ($stateParams, $state, verRecetaService) {
 	
 	
 	function transformarAReceta(jsonReceta) {
@@ -77,7 +117,7 @@ app.controller('copiarRecetaController', function ($stateParams, $state, copiarR
 
 
 
-app.controller('loginController', function($stateParams, $state,loginService) {
+app.controller('loginController', function ($stateParams, $state,loginService) {
 	this.nombre = "";
 	this.clave = "";
 

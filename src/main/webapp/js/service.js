@@ -21,6 +21,20 @@ app.service('recetasService', function($http) {
 
 });
 
+
+app.service('buscarRecetasService', function($http) {
+
+	this.findAll = function(callback) {
+		$http.get('/recetas').then(callback);
+	}
+
+	this.buscarPosta = function(recetaEjemplo, callback) {
+		$http.post('/buscar-recetas', recetaEjemplo).then(callback)
+	}
+
+});
+
+
 app.service('verRecetaService', function($http) {
 	this.findAll = function(id, callback) {
 		$http.get('/receta/' + id).then(callback);
