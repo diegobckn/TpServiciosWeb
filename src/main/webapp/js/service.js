@@ -1,8 +1,9 @@
 app.service('loginService', function($http) {
 	var usuarioLogueado = [];
 
-	this.checkLogin= function(usuario, callback) {
-		$http.post('/login',usuario).then(callback);
+	this.checkLogin= function(usuario, callback,errorCallBack) {
+		$http.post('/login',usuario)
+		.then(callback, errorCallBack);
 	}
 	
 	this.asignar = function(usuario){
@@ -15,17 +16,18 @@ app.service('loginService', function($http) {
 
 app.service('recetasService', function($http) {
 
-	this.findAll = function(callback) {
+	this.findRecetas = function(callback) {
 		$http.get('/recetas').then(callback);
 	}
-
-	this.update = function(receta, callback) {
-		$http.put('/receta/' + receta.id, receta).then(callback)
-	}
 	
+	this.findLabel = function(callback) {
+		$http.get('/label').then(callback)
+	}
+
 	this.hacerFavorita = function(id, callback) {
 		$http.post('/hacer-favorita/' + id).then(callback)
 	}
+
 
 });
 
@@ -59,7 +61,7 @@ app.service('verRecetaService', function($http) {
 
 app.service('copiarRecetaService', function($http) {
 
-	this.findAll = function(id, callback) {
+	this.findReceta = function(id, callback) {
 		$http.get('/copiar-receta/' + id).then(callback);
 	}
 

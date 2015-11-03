@@ -71,6 +71,8 @@ class QueComemosBuscador {
 		}
 	}
 	
+	
+	
 	def List<CondicionPreexistente> condicionesPermitidas(int id){
 		seleccionarReceta(id)
 		return recetaElegida.getCondicionesQueCumple()
@@ -108,9 +110,6 @@ class QueComemosBuscador {
 	
 	def void hacerFavorita(int id){
 		seleccionarReceta(id)
-		println("id=" + id)
-		println("usuarioLogueado nombre " + usuarioLogueado.nombre)
-		println("receta elegida = " + recetaElegida.nombre)
 		usuarioLogueado.agregarAFavoritas(recetaElegida)
 	}
 	

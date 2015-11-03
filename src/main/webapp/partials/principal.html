@@ -8,7 +8,7 @@
     
     
   <div class="panel panel-default">
-    <div class="panel-heading">Recetas disponibles</div>
+    <div class="panel-heading">{{recetasCtrl.label}}</div>
     <div class="panel-body">
 
 
@@ -23,7 +23,7 @@
        </tr>
        </thead>
        <tbody>
-       <tr data-ng-repeat="receta in recetasCtrl.recetas " class="animate-repeat">
+       <tr data-ng-repeat="receta in recetasCtrl.recetas " class="animate-repeat" style="background-color:' {{receta.color}}';">
          <td>
            <a ui-sref="verReceta({id: receta.id})">{{receta.nombre}}</a>
          </td>

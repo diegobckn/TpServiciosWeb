@@ -25,7 +25,7 @@ class RecetaAccesoPrivado extends RecetaAcceso {
 		misGrupos = RepoUsuarios.getInstance().grupos.filter(g | g.participantes.contains(unUsuario)).toList
 		
 		return this.usuarioCarga.equals(unUsuario) ||
-			misGrupos.contains(usuarioCarga)
+			misGrupos.exists[g|g.participantes.exists[u|u.nombre.equalsIgnoreCase(usuarioCarga.nombre)]]
 //			this.usuarioCarga.grupos.exists(
 //				grCarga|unUsuario.grupos.exists(grUsuario|grCarga.nombre.equalsIgnoreCase(grUsuario.nombre)))
 				

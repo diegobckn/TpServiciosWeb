@@ -18,6 +18,7 @@ class Receta implements IComponente {
 	String dificultad
 	String temporada
 	RecetaAcceso acceso
+	String color
 	List<IComponente> condimentos
 	List<CondicionPreexistente> condicionesPreexistentes
 	
@@ -108,6 +109,8 @@ class Receta implements IComponente {
 			return false
 		}
 	}
+	
+	
 
 	override hashCode() {
 		id.hashCode

@@ -165,11 +165,11 @@ class Usuario implements IAceptaSugerencias {
 //	para debuguear algunos datos
 	def void debug(){}
 	
-	def colorFondo(Receta queReceta){
-		var color="#fff"
+	def void setColorFondo(Receta queReceta){
+		queReceta.color="#fff"
 		if(queReceta.acceso.usuarioCarga.equals(this))
 		{
-			color = "#66DADA"
+			queReceta.color = "#66DADA"
 		}else{
 			if(RepoUsuarios.getInstance.grupos.exists
 				[
@@ -181,11 +181,10 @@ class Usuario implements IAceptaSugerencias {
 				]
 			 )
 			{
-				color = "#B4EC97"
+				queReceta.color = "#B4EC97"
 			}
 		}
 		
-		return color;
 	}
 
 }

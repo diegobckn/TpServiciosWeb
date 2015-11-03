@@ -4,6 +4,10 @@
 		<b>Panel de identificaci&oacute;n</b>
 	</div>
 	<div class="panel-body">
+	<div ng-if = "loginCtrl.error" class="alert alert-danger animate-repeat" >{{loginCtrl.error}}</div>
+	
+	
+	
 		<form method="POST">
 			<div class="form-group">
 				<label for="nombre">Ingrese su nombre</label> <input type="text"

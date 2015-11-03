@@ -33,26 +33,34 @@ class RecetasController {
 	def	Result setLogin(@Body String body){
 		nombre = body.getPropertyValue("nombre") as String
 		clave = body.getPropertyValue("clave") as String
-		amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
-//		ok('{ "status" : "OK" }');
-		ok(amBuscadorRecetas.usuarioLogueado.toJson);
 		
+		try {
+        amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
+        ok(amBuscadorRecetas.usuarioLogueado.toJson);
+	    } catch (Exception e) {
+	        badRequest(e.message)
+	    }
 	}
 
 	@Get("/recetas")
 	def Result recetas() {
 		amBuscadorRecetas.lista()
 		var recetas = amBuscadorRecetas.resultado
+		
+		recetas.forEach[r | amBuscadorRecetas.usuarioLogueado.setColorFondo(r)]
 
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(recetas.toJson)
 	}
 	
+	@Get("/label")
+	def Result findLabel() {
+		var label = amBuscadorRecetas.labelResultado
+		ok(label)
+	}
 	
 	@Post("/buscar-recetas")
 	def Result buscarRecetas(@Body String body) {
-//		amUsu.checkLogin()
-//		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
 		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
 
 		amBuscadorRecetas.busquedaNombre = body.getPropertyValue("nombre") as String
@@ -66,18 +74,17 @@ class RecetasController {
 	
 	
 		amBuscadorRecetas.buscar()
-//		amBuscadorRecetas.lista()
 		var resultado = amBuscadorRecetas.resultado
-
+		resultado.forEach[r | amBuscadorRecetas.usuarioLogueado.setColorFondo(r)]
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(resultado.toJson)
 	}
 	
+
+	
 	@Post("/hacer-favorita/:id")
 	def Result hacerFavorita() {
 		val iId = Integer.valueOf(id)
-//		amUsu.checkLogin()
-//		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
 		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
 
 		amBuscadorRecetas.hacerFavorita(iId)
@@ -90,10 +97,6 @@ class RecetasController {
 	@Get("/check-favorita/:id")
 	def Result checkFavorita() {
 		val iId = Integer.valueOf(id)
-//		amUsu.usuario = "Lex Luthor"
-//		amUsu.clave = "lEx";
-//		amUsu.checkLogin()
-//		amBuscadorRecetas.usuarioLogueado = amUsu.repoUsuarios.usuarioLogueado
 		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
 
 		var esFavorita = amBuscadorRecetas.checkFavorita(iId)
@@ -124,8 +127,6 @@ class RecetasController {
 	def Result copiar(@Body String body) {
 		val iId = Integer.valueOf(id)
 		var copia = body.fromJson(Receta)
-		amUsu.usuario = "Lex Luthor"
-		amUsu.clave = "lEx";
 		amUsu.checkLogin()
 		amBuscadorRecetas.usuarioLogueado = amUsu.repoUsuarios.usuarioLogueado
 		amBuscadorRecetas.nombreCopia = copia.nombre
@@ -146,14 +147,4 @@ class RecetasController {
 	}
 	
 
-//	@Put('/tareas/:id')
-//	def Result actualizar(@Body String body) {
-//		val actualizado = body.fromJson(Tarea)
-//		if (Integer.parseInt(id) != actualizado.id) {
-//			return badRequest('{ "error": "Id en URL distinto del body"}')
-//		}
-//	
-//		RepoTareas.instance.update(actualizado)
-//		ok('{ "status" : "OK" }');
-//	}
 }
