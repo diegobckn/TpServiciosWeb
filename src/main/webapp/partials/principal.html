@@ -1,4 +1,12 @@
 <div class="container">
+
+	<div class="panel panel-default">
+	    <div class="panel-body">
+	    Logueado como {{recetasCtrl.usuarioLogueado.nombre}}
+	    </div>
+    </div>
+    
+    
   <div class="panel panel-default">
     <div class="panel-heading">Recetas disponibles</div>
     <div class="panel-body">
@@ -35,10 +43,10 @@
            <span class="glyphicon glyphicon-eye-open"></span>
            Ver Receta
            </a>
-           <p class="btn btn-warning">
+           <a class="btn btn-warning" ng-click="recetasCtrl.hacerFavorita(receta.id)">
            <span class="glyphicon glyphicon-star"></span>
            Favorita
-           </p>
+           </a>
            <a class="btn btn-success" ui-sref="copiarReceta({id: receta.id})">
            <span class="glyphicon glyphicon-duplicate"></span>
            Copiar

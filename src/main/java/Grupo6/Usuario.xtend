@@ -19,7 +19,7 @@ class Usuario implements IAceptaSugerencias {
 	List<String> comidasQueNoGustan
 	List<CondicionPreexistente> condicionesPreexistentes
 	List<Receta> recetasFavoritas
-	List<Grupo> grupos
+//	List<Grupo> grupos
 	boolean guardarSiempreFavoritas
 	List<IFiltroStrategy> filtros
 	RutinaEjercicio rutinaDeEjercicio
@@ -49,7 +49,7 @@ class Usuario implements IAceptaSugerencias {
 		condicionesPreexistentes = new ArrayList<CondicionPreexistente>()
 		recetasFavoritas = new ArrayList<Receta>()
 		ultimasRecetasConsultadas = new ArrayList<Receta>()		
-		grupos = new ArrayList<Grupo>()
+//		grupos = new ArrayList<Grupo>()
 		guardarSiempreFavoritas = false
 		filtros = new ArrayList<IFiltroStrategy> 
 	}
@@ -148,7 +148,7 @@ class Usuario implements IAceptaSugerencias {
 		this.comidasQueNoGustan = unUsuario.comidasQueNoGustan
 		this.condicionesPreexistentes = unUsuario.condicionesPreexistentes
 		this.recetasFavoritas = unUsuario.recetasFavoritas
-		this.grupos = unUsuario.grupos
+//		this.grupos = unUsuario.grupos
 	}
 	
 	def agregarConsulta(Receta receta) {
@@ -171,7 +171,7 @@ class Usuario implements IAceptaSugerencias {
 		{
 			color = "#66DADA"
 		}else{
-			if(grupos.exists
+			if(RepoUsuarios.getInstance.grupos.exists
 				[
 					it.participantes.exists
 					[

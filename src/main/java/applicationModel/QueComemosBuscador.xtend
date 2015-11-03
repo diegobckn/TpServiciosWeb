@@ -52,7 +52,7 @@ class QueComemosBuscador {
 			resultado = repo.buscarPorDificultad(busquedaDificultad, resultado)
 			resultado = repo.buscarPorTemporada(busquedaTemporada, resultado)
 			resultado = repo.buscarPorIngrediente(busquedaIngrediente, resultado)
-			usuarioLogueado.revizarConsulta(resultado)
+//			usuarioLogueado.ultimasRecetasConsultadas = resultado
 				}
 	}
 	
@@ -108,6 +108,9 @@ class QueComemosBuscador {
 	
 	def void hacerFavorita(int id){
 		seleccionarReceta(id)
+		println("id=" + id)
+		println("usuarioLogueado nombre " + usuarioLogueado.nombre)
+		println("receta elegida = " + recetaElegida.nombre)
 		usuarioLogueado.agregarAFavoritas(recetaElegida)
 	}
 	

@@ -126,10 +126,10 @@
            <span class="glyphicon glyphicon-eye-open"></span>
            Ver Receta
            </a>
-           <p class="btn btn-warning">
+           <a class="btn btn-warning" ng-click="buscarCtrl.hacerFavorita(receta.id)">
            <span class="glyphicon glyphicon-star"></span>
            Favorita
-           </p>
+           </a>
            <a class="btn btn-success" ui-sref="copiarReceta({id: receta.id})">
            <span class="glyphicon glyphicon-duplicate"></span>
            Copiar

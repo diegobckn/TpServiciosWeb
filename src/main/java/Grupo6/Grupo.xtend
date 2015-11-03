@@ -18,12 +18,12 @@ class Grupo implements IAceptaSugerencias {
 
 	def void agregarUsuario(Usuario unUsuario) {
 		participantes.add(unUsuario);
-		unUsuario.grupos.add(this)
+//		unUsuario.grupos.add(this)
 	}
 
 	def void quitarUsuario(Usuario unUsuario) {
 		participantes.remove(unUsuario);
-		unUsuario.grupos.remove(this)
+//		unUsuario.grupos.remove(this)
 	}
 
 	override getEsSugeridaParaMi(Receta unaReceta) {

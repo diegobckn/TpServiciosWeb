@@ -14,9 +14,12 @@ class RepoUsuarios {
 	List<Usuario> usuariosAprobados = new ArrayList<Usuario>
 	List<Usuario> usuariosPendientes = new ArrayList<Usuario>
 	Usuario usuarioLogueado = null
+	List<Grupo> grupos
+	
 	static RepoUsuarios instance
 
 	new() {
+		grupos = new ArrayList<Grupo>
 		this.crearUsuariosDefault()
 	}
 
@@ -118,7 +121,7 @@ class RepoUsuarios {
 		miGrupo.nombre = "Grupo Copado"
 		miGrupo.agregarUsuario(user1)
 		miGrupo.agregarUsuario(user2)
-
+		grupos.add(miGrupo)
 		val recetaDeOtro = new Receta()
 		recetaDeOtro.setAcceso(new RecetaAccesoPrivado(user2))
 		recetaDeOtro.nombre = "Receta privada Lana"

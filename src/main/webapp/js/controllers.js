@@ -1,6 +1,10 @@
-app.controller('ListarRecetasController', function (recetasService) {
+app.controller('ListarRecetasController', function (recetasService, $state,loginService) {
 	var self = this;
 	this.recetas = [];
+	this.usuarioLogueado = []
+	
+	
+	
 
 	function transformarAReceta(jsonReceta) {
 		return Receta.asReceta(jsonReceta);
@@ -12,13 +16,20 @@ app.controller('ListarRecetasController', function (recetasService) {
 			self.recetas = _.map(data.data, Receta.asReceta);
 		});
 	}
-
+	
+	this.hacerFavorita = function(id){
+		recetasService.hacerFavorita(id,function(data){
+		});
+		this.getRecetas();
+	};
+	
+	this.usuarioLogueado  = loginService.usuarioLogueado;
 	this.getRecetas();
 
 });
 
 
-app.controller('BuscarRecetasController', function ($stateParams, $state, buscarRecetasService) {
+app.controller('BuscarRecetasController', function ($stateParams, $state, buscarRecetasService,recetasService) {
 	var self = this;
 	this.recetas = [];
 	this.recetaEjemplo;
@@ -52,6 +63,13 @@ app.controller('BuscarRecetasController', function ($stateParams, $state, buscar
 	 });
 	 $state.go("buscarRecetas");
 	 };
+	 
+	 this.hacerFavorita = function(id){
+		 buscarRecetasService.hacerFavorita(id,function(data){
+		//nada
+		});
+		this.buscar();
+	};
 
 });
 
@@ -66,6 +84,8 @@ app.controller('VerRecetaController', function ($stateParams, $state, verRecetaS
 	
 	var self = this;
 	var receta = [];
+	var esFavorita;
+	
 	this.getRecetaById = function() {
 		verRecetaService.findAll($stateParams.id,function(data) {
 			self.receta = data.data;
@@ -114,17 +134,30 @@ app.controller('copiarRecetaController', function ($stateParams, $state, copiarR
 
 
 
-app.controller('loginController', function ($stateParams, $state,loginService) {
+app.controller('loginController', function ($stateParams, $state, loginService) {
 	var usuario = [];
 	var self = this;
 	usuario.nombre = "";	
 	usuario.clave = "";
 
+	function transformarAUsuario(jsonUsuario) {
+		return Usuario.asUsuario(jsonUsuario);
+	}
+
+	
+	
  this.aceptar = function () {
- loginService.checkLogin(this.usuario, function(data) {
+	 loginService.checkLogin(this.usuario, function(data) {
 	 self.usuario = data.data;
+	 self.usuario = transformarAUsuario(self.usuario);
+	 
+	 loginService.asignar(self.usuario);
+	 
 	 $state.go("listarRecetas");
 	 });
+ 
+ 	
+ 	
  };
 
 

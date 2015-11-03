@@ -29,12 +29,14 @@ class RecetasController {
 		XTRest.start(RecetasController, 9000)
 	}
 	
-	@Put("/login")
+	@Post("/login")
 	def	Result setLogin(@Body String body){
 		nombre = body.getPropertyValue("nombre") as String
 		clave = body.getPropertyValue("clave") as String
 		amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
-		ok('{ "status" : "OK" }');
+//		ok('{ "status" : "OK" }');
+		ok(amBuscadorRecetas.usuarioLogueado.toJson);
+		
 	}
 
 	@Get("/recetas")
@@ -49,9 +51,9 @@ class RecetasController {
 	
 	@Post("/buscar-recetas")
 	def Result buscarRecetas(@Body String body) {
-		amUsu.checkLogin()
-		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
-		amBuscadorRecetas.usuarioLogueado = usuarioHardCoded
+//		amUsu.checkLogin()
+//		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
+		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
 
 		amBuscadorRecetas.busquedaNombre = body.getPropertyValue("nombre") as String
 		amBuscadorRecetas.busquedaCaloriasMinima = Integer.valueOf(body.getPropertyValue("caloriasMinima") as String)
@@ -71,14 +73,29 @@ class RecetasController {
 		ok(resultado.toJson)
 	}
 	
+	@Post("/hacer-favorita/:id")
+	def Result hacerFavorita() {
+		val iId = Integer.valueOf(id)
+//		amUsu.checkLogin()
+//		var usuarioHardCoded = amUsu.repoUsuarios.usuarioLogueado
+		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
+
+		amBuscadorRecetas.hacerFavorita(iId)
+		
+		response.contentType = ContentType.APPLICATION_JSON
+		ok('{ "status" : "OK" }');
+	}
+	
 	
 	@Get("/check-favorita/:id")
 	def Result checkFavorita() {
 		val iId = Integer.valueOf(id)
-		amUsu.usuario = "Lex Luthor"
-		amUsu.clave = "lEx";
-		amUsu.checkLogin()
-		amBuscadorRecetas.usuarioLogueado = amUsu.repoUsuarios.usuarioLogueado
+//		amUsu.usuario = "Lex Luthor"
+//		amUsu.clave = "lEx";
+//		amUsu.checkLogin()
+//		amBuscadorRecetas.usuarioLogueado = amUsu.repoUsuarios.usuarioLogueado
+		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
+
 		var esFavorita = amBuscadorRecetas.checkFavorita(iId)
 		
 		response.contentType = ContentType.APPLICATION_JSON

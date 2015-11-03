@@ -1,9 +1,14 @@
 app.service('loginService', function($http) {
-	
+	var usuarioLogueado = [];
 
 	this.checkLogin= function(usuario, callback) {
-		$http.put('/login',usuario).then(callback);
+		$http.post('/login',usuario).then(callback);
 	}
+	
+	this.asignar = function(usuario){
+		this.usuarioLogueado = usuario;
+	}
+	
 });
 
 
@@ -17,6 +22,10 @@ app.service('recetasService', function($http) {
 	this.update = function(receta, callback) {
 		$http.put('/receta/' + receta.id, receta).then(callback)
 	}
+	
+	this.hacerFavorita = function(id, callback) {
+		$http.post('/hacer-favorita/' + id).then(callback)
+	}
 
 });
 
@@ -29,6 +38,10 @@ app.service('buscarRecetasService', function($http) {
 
 	this.buscarPosta = function(recetaEjemplo, callback) {
 		$http.post('/buscar-recetas', recetaEjemplo).then(callback)
+	}
+	
+	this.hacerFavorita = function(id, callback) {
+		$http.post('/hacer-favorita/' + id).then(callback)
 	}
 
 });
