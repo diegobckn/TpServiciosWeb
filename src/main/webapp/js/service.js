@@ -34,12 +34,12 @@ app.service('recetasService', function($http) {
 
 app.service('buscarRecetasService', function($http) {
 
-	this.findAll = function(callback) {
-		$http.get('/recetas').then(callback);
+	this.findAll = function(callback,errorCallback) {
+		$http.get('/recetas').then(callback,errorCallback);
 	}
 
-	this.buscarPosta = function(recetaEjemplo, callback) {
-		$http.post('/buscar-recetas', recetaEjemplo).then(callback)
+	this.buscarPosta = function(recetaEjemplo, callback,errorCallBack) {
+		$http.post('/buscar-recetas', recetaEjemplo).then(callback,errorCallBack)
 	}
 	
 	this.hacerFavorita = function(id, callback) {

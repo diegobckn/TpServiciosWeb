@@ -31,10 +31,11 @@ app.controller('ListarRecetasController', function(recetasService, $state,
 });
 
 app.controller('BuscarRecetasController', function($stateParams, $state,
-		buscarRecetasService, recetasService) {
+		buscarRecetasService,loginService) {
 	var self = this;
 	this.recetas = [];
 	this.recetaEjemplo;
+	this.usuarioLogueado = []
 
 	this.iniciarValoresBusqueda = function() {
 		this.recetaEjemplo = new Receta();
@@ -60,6 +61,8 @@ app.controller('BuscarRecetasController', function($stateParams, $state,
 	this.buscar = function() {
 		buscarRecetasService.buscarPosta(this.recetaEjemplo, function(data) {
 			self.recetas = data.data;
+		}, function(error) {
+			self.error = error.data;
 		});
 		$state.go("buscarRecetas");
 	};
@@ -71,6 +74,7 @@ app.controller('BuscarRecetasController', function($stateParams, $state,
 		this.buscar();
 	};
 
+	this.usuarioLogueado = loginService.usuarioLogueado;
 });
 
 app.controller('VerRecetaController', function($stateParams, $state,

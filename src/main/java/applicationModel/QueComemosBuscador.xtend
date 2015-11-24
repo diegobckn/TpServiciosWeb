@@ -37,7 +37,6 @@ class QueComemosBuscador {
 	def void buscar()
 	{
 		 resultado = newArrayList
-		labelResultado = "Resultado de la busqueda"
 		
 			resultado = repo.getRecetasVisiblesPor(usuarioLogueado).toList()
 

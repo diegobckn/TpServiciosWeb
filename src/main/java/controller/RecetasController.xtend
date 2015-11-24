@@ -19,6 +19,7 @@ import java.util.Map
 
 @Controller
 class RecetasController {
+
 	QueComemosBuscador amBuscadorRecetas = new QueComemosBuscador()
 	QueComemosLogin amUsu = new QueComemosLogin()
 	String nombre
@@ -41,8 +42,61 @@ class RecetasController {
 	        badRequest(e.message)
 	    }
 	}
+	
+	@Get("/logclark")
+	def	Result logclark(@Body String body){
+		nombre = "Clark Kent"
+		clave = "cLark"
+		
+		try {
+        amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
+        ok(amBuscadorRecetas.usuarioLogueado.toJson);
+	    } catch (Exception e) {
+	        badRequest(e.message)
+	    }
+	}
+	
+	@Get("/quecomemos/logclark")
+	def	Result queComemosLogclark(@Body String body){
+		nombre = "Clark Kent"
+		clave = "cLark"
+		
+		try {
+        amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
+        ok(amBuscadorRecetas.usuarioLogueado.toJson);
+	    } catch (Exception e) {
+	        badRequest(e.message)
+	    }
+	}
+	
+	@Get("/loglex")
+	def	Result loglex(@Body String body){
+		nombre = "Lex Luthor"
+		clave = "lEx"
+		
+		try {
+        amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
+        ok(amBuscadorRecetas.usuarioLogueado.toJson);
+	    } catch (Exception e) {
+	        badRequest(e.message)
+	    }
+	}
+	
+	
+	@Get("/quecomemos/loglex")
+	def	Result queComemosLoglex(@Body String body){
+		nombre = "Lex Luthor"
+		clave = "lEx"
+		
+		try {
+        amBuscadorRecetas.usuarioLogueado = amUsu.loguear(nombre,clave)
+        ok(amBuscadorRecetas.usuarioLogueado.toJson);
+	    } catch (Exception e) {
+	        badRequest(e.message)
+	    }
+	}
 
-	@Get("/recetas")
+	@Get("/recetas")//p
 	def Result recetas() {
 		amBuscadorRecetas.lista()
 		var recetas = amBuscadorRecetas.resultado
@@ -53,14 +107,28 @@ class RecetasController {
 		ok(recetas.toJson)
 	}
 	
+	
+	@Get("/quecomemos/recetas")//p
+	def Result queComemosRecetas() {
+		amBuscadorRecetas.lista()
+		var recetas = amBuscadorRecetas.resultado
+		
+		recetas.forEach[r | amBuscadorRecetas.usuarioLogueado.setColorFondo(r)]
+
+		response.contentType = ContentType.APPLICATION_JSON
+		ok(recetas.toJson)
+	}
+	
+	
 	@Get("/label")
 	def Result findLabel() {
 		var label = amBuscadorRecetas.labelResultado
 		ok(label)
 	}
 	
-	@Post("/buscar-recetas")
+	@Post("/buscar-recetas")//p
 	def Result buscarRecetas(@Body String body) {
+		try {
 		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
 
 		amBuscadorRecetas.busquedaNombre = body.getPropertyValue("nombre") as String
@@ -78,11 +146,14 @@ class RecetasController {
 		resultado.forEach[r | amBuscadorRecetas.usuarioLogueado.setColorFondo(r)]
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(resultado.toJson)
+	    } catch (Exception e) {
+	        badRequest(e.message)
+	    }
 	}
 	
 
 	
-	@Post("/hacer-favorita/:id")
+	@Post("/hacer-favorita/:id") //p
 	def Result hacerFavorita() {
 		val iId = Integer.valueOf(id)
 		amBuscadorRecetas.usuarioLogueado = amUsu.checkLogin()
@@ -107,6 +178,15 @@ class RecetasController {
 
 	@Get("/receta/:id")
 	def Result receta() {
+		val iId = Integer.valueOf(id)
+		var receta = amBuscadorRecetas.getElegida(iId)
+		response.contentType = ContentType.APPLICATION_JSON
+
+		ok(receta.toJson)
+	}
+	
+	@Get("/quecomemos/receta/:id")
+	def Result queComemosReceta() {
 		val iId = Integer.valueOf(id)
 		var receta = amBuscadorRecetas.getElegida(iId)
 		response.contentType = ContentType.APPLICATION_JSON

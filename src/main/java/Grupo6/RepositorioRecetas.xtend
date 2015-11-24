@@ -4,8 +4,7 @@ import Tests.SharedTestComponents
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-
-
+import org.uqbar.commons.model.UserException
 
 @Accessors
 class RepositorioRecetas implements IFiltro {
@@ -13,20 +12,20 @@ class RepositorioRecetas implements IFiltro {
 	Buscador buscador
 	Receta recetaSeleccionada
 	List<IBusquedaObservador> buscadores
-	static RepositorioRecetas instance = null 
+	static RepositorioRecetas instance = null
 
-	static def getInstance(){
-		if(instance==null)
-		{
+	static def getInstance() {
+		if (instance == null) {
 			instance = new RepositorioRecetas()
 		}
 		instance
 	}
-	
+
 	new() {
 		recetas = new ArrayList<Receta>
 		recetas.add(getRecetaPrueba())
-//		recetas.add(SharedTestComponents.getBifeConPure)
+
+		//		recetas.add(SharedTestComponents.getBifeConPure)
 		buscador = new Buscador
 
 	}
@@ -48,7 +47,11 @@ class RepositorioRecetas implements IFiltro {
 	}
 
 	def List<Receta> buscarPorCalorias(Integer minCal, Integer maxCal, List<Receta> resultado) {
-		if ((minCal == null || minCal==0) || (maxCal == null || maxCal==0)) {
+		if (minCal > maxCal) {
+			throw new UserException("Las calorias mìnimas debe ser menores a las màximas")
+		}
+
+		if ((minCal == null || minCal == 0) || (maxCal == null || maxCal == 0)) {
 			return resultado
 		} else {
 			return resultado.filter[receta|((receta.calorias > minCal) && (receta.calorias < maxCal))].toList
@@ -73,7 +76,7 @@ class RepositorioRecetas implements IFiltro {
 	}
 
 	def List<Receta> buscarPorIngrediente(String ingrediente, List<Receta> resultado) {
-		if (ingrediente == null || ingrediente==="") {
+		if (ingrediente == null || ingrediente === "") {
 			return resultado
 		} else {
 			return resultado.filter[receta|receta.tieneIngrediente(ingrediente)].toList
@@ -125,9 +128,9 @@ class RepositorioRecetas implements IFiltro {
 		unaReceta.pasos.add("paso3")
 		unaReceta
 	}
-	
-	def Receta getById(int id){
-		recetas.findFirst[r | r.id.equals(id)]// && r.puedeVerme(RepoUsuarios.getInstance.usuarioLogueado)]
+
+	def Receta getById(int id) {
+		recetas.findFirst[r|r.id.equals(id)] // && r.puedeVerme(RepoUsuarios.getInstance.usuarioLogueado)]
 	}
 
 }
